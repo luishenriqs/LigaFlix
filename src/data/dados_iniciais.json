@@ -1,7 +1,7 @@
 {
   "categorias": [
     {
-      "titulo": "Luisão",
+      "titulo": "Front End",
       "link": "https://www.alura.com.br/formacao-front-end",
       "cor": "#6BD1FF",
       "link_extra": {
@@ -44,7 +44,7 @@
       ]
     },
     {
-      "titulo": "Sorahia",
+      "titulo": "Back End",
       "cor": "#00C86F",
       "link_extra": {
         "text": "Cursos de Back End na Alura",
@@ -74,7 +74,7 @@
       ]
     },
     {
-      "titulo": "Mateus",
+      "titulo": "Data Science",
       "cor": "#9cd33b",
       "link_extra": {
         "text": "Cursos de Data Science na Alura",
@@ -100,7 +100,7 @@
       ]
     },
     {
-      "titulo": "Elaine",
+      "titulo": "Filmes",
       "cor": "orange",
       "videos": [
         {
@@ -122,7 +122,7 @@
       ]
     },
     {
-      "titulo": "Roger",
+      "titulo": "Games",
       "cor": "red",
       "link_extra": {
         "text": "Formação de Jogos na Alura",
