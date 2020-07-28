@@ -1,4 +1,3 @@
-import Styled from 'styled-components';
 import styled from 'styled-components';
 
 const Button = styled.button`
