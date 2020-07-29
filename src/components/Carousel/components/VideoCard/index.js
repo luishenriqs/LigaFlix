@@ -10,7 +10,7 @@ function getYouTubeId(youtubeURL) {
 }
 
 
-function VideoCard({ videoTitle, videoURL, categoryColor }) {
+function Carrosel({ videoTitle, videoURL, categoryColor }) {
   const image = `https://img.youtube.com/vi/${getYouTubeId(videoURL)}/hqdefault.jpg`;
   return (
     <VideoCardContainer
@@ -23,4 +23,4 @@ function VideoCard({ videoTitle, videoURL, categoryColor }) {
   );
 }
 
-export default VideoCard;
+export default Carrosel;
