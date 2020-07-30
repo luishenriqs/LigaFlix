@@ -1,6 +1,5 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormFild from '../../../components/FormField';
@@ -29,6 +28,20 @@ function CadastroCategoria() {
       infosDoEvento.target.value,
     );
   }
+  useEffect(() => {
+    if (window.location.href.includes('localhost')) {
+      const URL = 'http://localhost:8080/categorias';
+      fetch(URL)
+        .then(async (respostaDoServer) => {
+          if (respostaDoServer.ok) {
+            const resposta = await respostaDoServer.json();
+            setCategorias(resposta);
+            return;
+          }
+          throw new Error('Não foi possível pegar os dados');
+        });
+    }
+  }, []);
 
   return (
     <PageDefault>
@@ -48,7 +61,7 @@ function CadastroCategoria() {
       >
 
         <FormFild
-          label="Nome da Categoria: "
+          label="Nome da Categoria "
           type="text"
           value={values.nome}
           name="nome"
@@ -56,7 +69,7 @@ function CadastroCategoria() {
         />
 
         <FormFild
-          label="Descrição: "
+          label="Descrição "
           type="textarea"
           value={values.descrição}
           name="descricao"
@@ -64,9 +77,9 @@ function CadastroCategoria() {
         />
 
         <FormFild
-          label="Cor: "
+          label="Cor "
           type="color"
-          value={values.descrição}
+          value={values.cor}
           name="cor"
           onChange={handleChange}
         />
