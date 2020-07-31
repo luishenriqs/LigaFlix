@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
@@ -70,20 +71,17 @@ const Input = styled.input`
 }
 `;
 
-function FormFild({
-  label, type, value, name, onChange,
+function FormField({
+  label, type, name, value, onChange,
 }) {
-  const fieldId = `id_${name}`;
-  const tag = type === 'textarea' ? 'textarea' : 'input';
+  const isTypeTextArea = type === 'textarea';
+  const tag = isTypeTextArea ? 'textarea' : 'input';
 
   return (
     <FormFieldWrapper>
-      <Label
-        htmlFor={fieldId}
-      >
+      <Label>
         <Input
           as={tag}
-          id={fieldId}
           type={type}
           value={value}
           name={name}
@@ -98,18 +96,17 @@ function FormFild({
   );
 }
 
-FormFild.defaultProps = {
+FormField.defaultProps = {
   type: 'text',
   value: '',
-  onChange: () => {},
 };
 
-FormFild.propTypes = {
+FormField.propTypes = {
   label: PropTypes.string.isRequired,
-  type: PropTypes.string,
   name: PropTypes.string.isRequired,
+  type: PropTypes.string,
   value: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
 };
 
-export default FormFild;
+export default FormField;

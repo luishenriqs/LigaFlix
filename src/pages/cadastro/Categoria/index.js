@@ -9,7 +9,7 @@ function CadastroCategoria() {
   const valoresIniciais = {
     nome: '',
     descricao: '',
-    cor: '  ',
+    cor: '',
   };
 
   const [categorias, setCategorias] = useState([]);
@@ -30,7 +30,7 @@ function CadastroCategoria() {
   }
   useEffect(() => {
     if (window.location.href.includes('localhost')) {
-      const URL = 'http://localhost:8080/categorias';
+      const URL = 'https://ligaflix.herokuapp.com/categorias';
       fetch(URL)
         .then(async (respostaDoServer) => {
           if (respostaDoServer.ok) {
@@ -61,7 +61,7 @@ function CadastroCategoria() {
       >
 
         <FormFild
-          label="Nome da Categoria "
+          label="Nome da Categoria"
           type="text"
           value={values.nome}
           name="nome"
@@ -69,15 +69,15 @@ function CadastroCategoria() {
         />
 
         <FormFild
-          label="Descrição "
+          label="Descrição"
           type="textarea"
-          value={values.descrição}
+          value={values.descricao}
           name="descricao"
           onChange={handleChange}
         />
 
         <FormFild
-          label="Cor "
+          label="Cor"
           type="color"
           value={values.cor}
           name="cor"
@@ -90,6 +90,7 @@ function CadastroCategoria() {
       </form>
       <ul>
         {categorias.map((categoria, indice) => (
+          // eslint-disable-next-line react/no-array-index-key
           <li key={`${categoria}${indice}`}>
             {categoria.nome}
           </li>
