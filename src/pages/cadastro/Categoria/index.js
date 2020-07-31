@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
-import FormFild from '../../../components/FormField';
+import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
+// eslint-disable-next-line import/extensions
+import useForm from '../../../hooks/useForm';
 
 function CadastroCategoria() {
   const valoresIniciais = {
@@ -12,43 +14,30 @@ function CadastroCategoria() {
     cor: '',
   };
 
+  const { handleChange, values, clearForm } = useForm(valoresIniciais);
+
   const [categorias, setCategorias] = useState([]);
-  const [values, setValues] = useState(valoresIniciais);
 
-  function setValue(chave, valor) {
-    setValues({
-      ...values,
-      [chave]: valor,
-    });
-  }
-
-  function handleChange(infosDoEvento) {
-    setValue(
-      infosDoEvento.target.getAttribute('name'),
-      infosDoEvento.target.value,
-    );
-  }
   useEffect(() => {
-    if (window.location.href.includes('localhost')) {
-      const URL = 'https://ligaflix.herokuapp.com/categorias';
-      fetch(URL)
-        .then(async (respostaDoServer) => {
-          if (respostaDoServer.ok) {
-            const resposta = await respostaDoServer.json();
-            setCategorias(resposta);
-            return;
-          }
-          throw new Error('Não foi possível pegar os dados');
-        });
-    }
+    const URL_TOP = window.location.hostname.includes('localhost')
+      ? 'http://localhost:8080/categorias'
+      : 'https://devsoutinhoflix.herokuapp.com/categorias';
+    fetch(URL_TOP)
+      .then(async (respostaDoServidor) => {
+        const resposta = await respostaDoServidor.json();
+        setCategorias([
+          ...resposta,
+        ]);
+      });
   }, []);
 
   return (
     <PageDefault>
       <h1>
-        Cadastro de categoria:
+        Cadastro de Categoria:
         {values.nome}
       </h1>
+
       <form onSubmit={function handleSubmit(infosDoEvento) {
         infosDoEvento.preventDefault();
         setCategorias([
@@ -56,31 +45,30 @@ function CadastroCategoria() {
           values,
         ]);
 
-        setValues(valoresIniciais);
+        clearForm();
       }}
       >
 
-        <FormFild
+        <FormField
           label="Nome da Categoria"
-          type="text"
-          value={values.nome}
           name="nome"
+          value={values.nome}
           onChange={handleChange}
         />
 
-        <FormFild
+        <FormField
           label="Descrição"
           type="textarea"
-          value={values.descricao}
           name="descricao"
+          value={values.descricao}
           onChange={handleChange}
         />
 
-        <FormFild
+        <FormField
           label="Cor"
           type="color"
-          value={values.cor}
           name="cor"
+          value={values.cor}
           onChange={handleChange}
         />
 
@@ -88,17 +76,24 @@ function CadastroCategoria() {
           Cadastrar
         </Button>
       </form>
+
+      {categorias.length === 0 && (
+        <div>
+          {/* Cargando... */}
+          Loading...
+        </div>
+      )}
+
       <ul>
-        {categorias.map((categoria, indice) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={`${categoria}${indice}`}>
-            {categoria.nome}
+        {categorias.map((categoria) => (
+          <li key={`${categoria.titulo}`}>
+            {categoria.titulo}
           </li>
         ))}
       </ul>
 
       <Link to="/">
-        Ir pra home
+        Ir para home
       </Link>
     </PageDefault>
   );
