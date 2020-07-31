@@ -2,14 +2,14 @@
     "categorias": [
         {
             "id": 1,
-            "nome": "Meus Favoritos",
+            "nome": "Meus Filmes Favoritos",
             "descrição": "Só vídeo top",
             "cor": "#6bd1ff"
         },
 
         {
             "id": 2,
-            "nome": "Top 10 Rock",
+            "nome": "Top 20 Rock",
             "descrição": "Músicas pra macho!!!",
             "cor": "#cbcbcb"
         }
